@@ -1,0 +1,11 @@
+#members {
+    display: flex;
+}
+
+.boy{
+    background-color: rgb(94, 137, 216);
+}
+
+.girl{
+    background-color: rgb(209, 108, 125);
+}
