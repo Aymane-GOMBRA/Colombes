@@ -25,7 +25,7 @@
     ?></p>
   <hr class="my-4">
   <p>Cliquez sur le bouton ci-dessous pour accéder au back-office(user et mot de passe requis):</p>
-  <a class="btn btn-success btn-lg" href="#" role="button">Connexion</a>
+  <a class="btn btn-success btn-lg" href="edit_cat_list.php" role="button">Connexion</a>
 </div>
 
 

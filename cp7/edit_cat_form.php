@@ -12,8 +12,9 @@
 
     <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="index.php">Accueil</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Catégories</li>
+    <li class="breadcrumb-item"><a href="index.php">Acceuil</a></li>
+    <li class="breadcrumb-item"><a href="edit_cat_list.php">Liste catégories</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Édition catégories</li>
   </ol>
 </nav>
 
