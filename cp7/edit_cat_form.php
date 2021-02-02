@@ -36,7 +36,7 @@
 <div class="form-group">
     <label for="PHOTO">Photo</label>
     <input type="file" name="PHOTO" id="PHOTO" class="form-control" accept=".png,.jpeg,.gif,.jpg,.webp">
-    <input type="hidden" name="MAX_FILE_SIZE" value="102400">
+    <input type="hidden" name="MAX_FILE_SIZE" value="512000">
 </div>
 
 <input type="submit" class="btn btn-primary" value="Enregistrer">
