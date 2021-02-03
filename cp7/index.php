@@ -25,7 +25,8 @@
     ?></p>
   <hr class="my-4">
   <p>Cliquez sur le bouton ci-dessous pour accéder au back-office(user et mot de passe requis):</p>
-  <a class="btn btn-success btn-lg" href="edit_cat_list.php" role="button">Connexion</a>
+  <a class="btn btn-success btn-lg" href="#" role="button">Connexion</a>
+  
 </div>
 
 
@@ -69,6 +70,21 @@ echo $html;
 <section id="projects">
   <?php include_once('projects.php');?>
 </section>
+<div id="bo">
+<h2>Back-Office</h2>
+<section id="tables">
+<?php
+$cnn = mysqli_connect('localhost', 'root', 'gombra', 'information_schema');
+$res = mysqli_query($cnn, "SELECT table_name, table_rows FROM tables WHERE table_schema = 'northwind'");
+$html='';
+while($row=mysqli_fetch_assoc($res)){
+  $html .='<a class="btn btn-info m-3" href="'.$row['TABLE_NAME'].'.php">'.$row['TABLE_NAME'].'<span class="badge badge-light">'.$row['TABLE_ROWS'].'</span></a>';
+}
+echo $html;
+mysqli_close($cnn);
+?>
+</section>
+</div>
 
 </body>
 </html>

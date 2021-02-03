@@ -24,7 +24,7 @@ $res = mysqli_query($cnn, 'SELECT * FROM categories');
         <li class="breadcrumb-item"><a href="edit_cat_form.php">Édition catégories</a></li>
         </ol>
     </nav>
-    <table class="table table-dark table-striped">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <?php
@@ -41,11 +41,15 @@ $res = mysqli_query($cnn, 'SELECT * FROM categories');
             <?php
             //Liste les datas
             $html ='';
-            while($row = mysqli_fetch_assoc($res)){
+            while($row = mysqli_fetch_row($res)){
                 $html .= "<tr>";
                 foreach($row as $key => $val){
+                    if($key===0){
+                        //Lien si la première colonne
+                        $html .='<td><a href="edit_cat_form.php?k='.$val.'">'.$val.'</a></td>';
+                    }
                     //Si ce n'est du BLOB
-                    if(strpos($val, ';base64,')){
+                    elseif(strpos($val, ';base64,')){
                         $html .='<td><img src="'.$val.'" style="width:4rem" /></td>';  
                     }else{
                         $html .="<td>{$val}</td>";  
