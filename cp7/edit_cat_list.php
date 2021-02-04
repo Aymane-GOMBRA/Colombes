@@ -21,9 +21,9 @@ $res = mysqli_query($cnn, 'SELECT * FROM categories');
         <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.php">Acceuil</a></li>
         <li class="breadcrumb-item active" aria-current="page">Liste catégories</li>
-        <li class="breadcrumb-item"><a href="edit_cat_form.php">Édition catégories</a></li>
         </ol>
     </nav>
+    <a class="btn btn-success btn-lg" href="edit_cat_form.php" role="button">Éditer la BDD</a>
     <table class="table table-striped">
         <thead>
             <tr>

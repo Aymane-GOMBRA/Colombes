@@ -1,3 +1,10 @@
+<?php
+if(isset($_GET['k']) && !empty($_GET['k'])){
+    $cnn = mysqli_connect('localhost', 'root', 'gombra', 'northwind');
+    $res = mysqli_query($cnn, 'SELECT * FROM categories WHERE CODE_CATEGORIE = '.$_GET['k']);
+    $row = mysqli_fetch_assoc($res);
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -18,26 +25,27 @@
   </ol>
 </nav>
 
-<form action="edit_cat_proc.php" method="post" enctype="multipart/form-data" >
+<form action="edit_cat_proc.php<?php echo ($_SERVER['QUERY_STRING']?'?'.$_SERVER['QUERY_STRING'] : '');?>" method="post" enctype="multipart/form-data" >
 <div class="form-group">
     <label for="CODE_CATEGORIE">Code catégorie : </label>
-    <input type="number" name="CODE_CATEGORIE" id="CODE_CATEGORIE" class="form-control" required pattern="[0-9]{1,6}">
+    <input type="number" name="CODE_CATEGORIE" id="CODE_CATEGORIE" class="form-control" required pattern="[0-9]{1,6}" value="<?php echo (!empty($row)?$row['CODE_CATEGORIE']:'');?>">
 </div>
 
 <div class="form-group">
     <label for="NOM_CATEGORIE">Nom catégorie : </label>
-    <input type="text" name="NOM_CATEGORIE" id="NOM_CATEGORIE" class="form-control" required pattern="[A-Za-z éèùôîöï'\-]{1,25}">
+    <input type="text" name="NOM_CATEGORIE" id="NOM_CATEGORIE" class="form-control" required pattern="[A-Za-z\u00C0-\uOOCF'\-]{1,25}" value="<?php echo (!empty($row)?$row['NOM_CATEGORIE']:'');?>">
 </div>
 
 <div class="form-group">
     <label for="DESCRIPTION">Description : </label>
-    <textarea name="DESCRIPTION" id="DESCRIPTION" cols="30" rows="3"class="form-control"></textarea>
+    <textarea name="DESCRIPTION" id="DESCRIPTION" cols="30" rows="3"class="form-control" ><?php echo (!empty($row)?$row['DESCRIPTION']:'');?></textarea>
 </div>
 
 <div class="form-group">
     <label for="PHOTO">Photo</label>
     <input type="file" name="PHOTO" id="PHOTO" class="form-control" accept=".png,.jpeg,.gif,.jpg,.webp">
     <input type="hidden" name="MAX_FILE_SIZE" value="512000">
+    <input type="hidden" name="test" value="<?php echo (!empty($row)?$row['PHOTO']:'');?>">
 </div>
 
 <input type="submit" class="btn btn-primary" value="Enregistrer">

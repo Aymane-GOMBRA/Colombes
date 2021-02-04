@@ -19,7 +19,7 @@ if (mysqli_connect_errno()) {
 }
 
 //récupération de l'image à téléverser
-var_dump($_FILES);
+// var_dump($_FILES);
 if (isset($_FILES['PHOTO']) && $_FILES['PHOTO']['error'] !== UPLOAD_ERR_NO_FILE) {
     //Variables du fichier
     $file_exts = array('png','jpeg','gif','jpg','webp');
@@ -47,19 +47,36 @@ if (isset($_FILES['PHOTO']) && $_FILES['PHOTO']['error'] !== UPLOAD_ERR_NO_FILE)
         echo '<a href="edit_cat_form.php">Retour au formulaire</a>';
         exit();
     }
+    echo $params[0];
 }else{
-    $params[3]=null;
+    $params[3]=$_POST['test'];
+    
 }
 
+//Teste si UPDATE OU INSERT
+if(isset($_GET['k']) && !empty($_GET['k'])){
+    $update = true;//UPDATE
 
+}else{
+    $update= false;//INSERT
+}
 
 //Sécurité : step 3
 //préparation de la requête
 $qry = mysqli_stmt_init($cnn);
+if($update){
+    $sql="UPDATE categories SET CODE_CATEGORIE=?, NOM_CATEGORIE=?, DESCRIPTION=?, PHOTO=? WHERE CODE_CATEGORIE=?";
+}else{
 $sql = "INSERT INTO categories(CODE_CATEGORIE, NOM_CATEGORIE, DESCRIPTION, PHOTO) VALUES(?, ?, ?, ?)";
+}
 if (mysqli_stmt_prepare($qry, $sql)) {
     //lie les paramètres à la requête préparée
-    mysqli_stmt_bind_param($qry, "isss", $params[0], $params[1], $params[2], $params[3]);
+    if($update){
+        mysqli_stmt_bind_param($qry, "isssi", $params[0], $params[1], $params[2], $params[3], $_GET['k']);
+    }else{
+        mysqli_stmt_bind_param($qry, "isss", $params[0], $params[1], $params[2], $params[3]);
+    }
+   
     //exécute la requête
     mysqli_stmt_execute($qry);
     //ferme le statement
@@ -67,4 +84,6 @@ if (mysqli_stmt_prepare($qry, $sql)) {
 }
 //déconnexion de la BDD
 mysqli_close($cnn);
+//Renvoie vers la liste
+header('location:edit_cat_list.php');
 ?>
