@@ -33,7 +33,7 @@ if(isset($_GET['k']) && !empty($_GET['k'])){
 
 <div class="form-group">
     <label for="NOM_CATEGORIE">Nom catégorie : </label>
-    <input type="text" name="NOM_CATEGORIE" id="NOM_CATEGORIE" class="form-control" required pattern="[A-Za-z\u00C0-\uOOCF'\-]{1,25}" value="<?php echo (!empty($row)?$row['NOM_CATEGORIE']:'');?>">
+    <input type="text" name="NOM_CATEGORIE" id="NOM_CATEGORIE" class="form-control" required pattern="[A-Za-z\u00C0-\uOOFF'\-]{1,25}" value="<?php echo (!empty($row)?$row['NOM_CATEGORIE']:'');?>">
 </div>
 
 <div class="form-group">
