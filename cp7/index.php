@@ -103,11 +103,18 @@ mysqli_close($cnn);
           </div>
           <div class="form-group">
             <label for="land">Pays : </label>
-            <select name="land" id="land" class="form-control">
-              <?php
-              $json=file_get_contents('https://restcountries.eu/rest/v2/lang/fr?fields=name;alpha2Code');
+            <?php
+              $json=file_get_contents('https://restcountries.eu/rest/v2/lang/fr?fields=translations;alpha2Code');
               $obj=json_decode($json);
-              ?>
+            ?>
+            <select name="land" id="land" class="form-control">
+            <?php
+            $html="";
+            foreach($obj as $val){
+              $html.='<option value="'.$val->alpha2Code.'">'.$val->translations->fr.'</option>';
+            }
+            echo $html;
+            ?>
             </select>
           </div>
 
