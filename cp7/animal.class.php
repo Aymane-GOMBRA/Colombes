@@ -7,7 +7,13 @@ class Animal
     //Propriétés privées
     private $type='';
     private $color='';
-    private $weight=0.0;
+    protected $weight=0.0;
+    private $dob = '';
+
+    //Propriétés statiques
+    protected static $nb = 0;
+    
+    
 
     //Constantes de classe
     const TYPE_AIR = 'aérien';
@@ -16,12 +22,49 @@ class Animal
     const TYPE_ELSE = 'autre';
 
     //Constructeur de la classe
-    public function __construct(string $newName='', string $newType=self::TYPE_ELSE, string $newColor='blanc', float $newWeight=0.02){
+    public function __construct(string $newName='', string $newType=self::TYPE_ELSE, string $newColor='blanc', float $newWeight=0.02, string $newDob='1970-01-02'){
         //Assigne les valeurs des arguments aux attributs
         $this->name=$newName;
-        $this->type=$newType;
-        $this->color=$newColor;
-        $this->weight=$newWeight;
+        $this->setType($newType);
+        $this->setColor($newColor);
+        $this->setWeight($newWeight);
+        $this->setDob($newDob);
+        // Incrémente le compteur d'instances
+        self::$nb++;
+    }
+
+    // Méthode statique qui affiche le nombre d'instances
+    public static function getNb():int
+    {
+        return self::$nb;
+    }
+
+    //Fonctions privées pour usage interne
+    private function isDate($arg):bool{
+        return (bool) strtotime($arg);
+    }
+
+    // Accesseur/Mutateurs(Getters/Setters)
+    public function getDob()
+    {
+        return $this->dob;
+    }
+
+    public function setDob(string $newDob){
+        if($this->isDate($newDob)){
+            $this->dob = $newDob;
+        }else {
+            throw new Exception('L\'argument passé en paramètre n\'est pas une date');
+        }
+    }
+
+    // Accesseurs/Mutateurs (Getters/Setters)
+    public function getAge(): int
+    {
+        $d1 = strtotime($this->getDob());
+        $d2 = strtotime(date('Y-m-d'));
+        $diff = $d2 - $d1;
+        return floor($diff / 60 / 60 / 24 / 365.25);
     }
 
     //Accesseur/Mutateurs (Getters/Setters)
@@ -90,6 +133,16 @@ class Animal
         // la proie perd son poids
         $prey->weight=0;
         
+    }
+
+    public function __destruct()
+    {
+        //RAZ des propriétés de l'animal
+        $this->type = self::TYPE_ELSE;
+        $this->color = '';
+        $this->weight = .0;
+        // Décrémente le nombre d'instances
+        self::$nb--;
     }
 }
 ?>
