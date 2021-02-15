@@ -39,11 +39,20 @@ if ($nb === 1) {
 
         //Envoie d'un mail pour confirmation si succes
         if ($res) {
+            $url='http://' . $_SERVER['HTTP_HOST'] . 'html/colombes/cp7/register2.php?m=' . $email;
+            $url=urlencode($url);
             //Corps du mail
-            $html = '<h1>Inscription Northwind Traders</h1>';
+            $html = '
+            <!DOCTYPE html>
+            <html lang="fr">
+            <head>
+            <meta charset="UTF-8">
+            </head>';
+            $html .= '<h1>Inscription Northwind Traders</h1>';
             $html .= '<p>Bonjour ' . $_POST['fname'] . ' et bienvenu(e) sur notre site.';
-            $html .= '<p>Clique sur le lien suivant pour valider ton inscription : http://' . $_SERVER['HTTP_HOST'] . 'html/colombes/cp7/register2.php?m=' . $email;
+            $html .= '<p>Clique sur le lien suivant pour valider ton inscription : <a href="'.$url.'">'.$url.'</a>';
             $html .= '<p>À très bientôt';
+            $html .= '</body></html>';
             //En-tête du mail
             $header = "MIME-Version: 1.0 \n"; //Version MIME
             $header .= "Content-type: text/html; charset=utf-8 \n"; //Format du mail

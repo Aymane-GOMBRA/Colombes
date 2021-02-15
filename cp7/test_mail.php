@@ -45,7 +45,7 @@ $headers = "MIME-Version: 1.0 \r\n";
 $headers .= "Content-type:text/html;charset=UTF-8 \r\n";
 
 // Plus d'en-tête : From est requis, le reste est optionnel
-$headers .= "From: OuaiCestMoi@laponie.fi \r\n";
+$headers .= "From: OuaiCestm@laponie.fi \r\n";
 $headers .= "Cc: pere.fouettard@hell.org \r\n";
 
 // Envoi du mail
