@@ -26,8 +26,8 @@
     ?></p>
   <hr class="my-4">
   <p>Cliquez sur le bouton ci-dessous pour accéder au back-office(user et mot de passe requis):</p>
-  <a class="btn btn-secondary btn-lg" href="login.php" role="button">Connexion</a>
-  <a class="btn btn-primary btn-lg" data-toggle="modal" href="#"data-target="#staticBackdrop" role="button">Inscription</a>
+  <a class="btn btn-success btn-lg" data-toggle="modal" href="#"data-target="#login" role="button">Connexion</a>
+  <a class="btn btn-primary btn-lg" data-toggle="modal" href="#"data-target="#register" role="button">Inscription</a>
 </div>
 
 <?php
@@ -87,7 +87,8 @@ mysqli_close($cnn);
 </section>
 </div>
 
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Modal Inscription -->
+<div class="modal fade" id="register" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -99,9 +100,6 @@ mysqli_close($cnn);
         </button>
       </div>
       <div class="modal-body">
-
-        
-
           <div class="form-group">
             <label for="fname">Prénom : </label>
             <input type="text" name="fname" id="fname" required pattern="[A-Za-z\u00C0-\uOOFF'\-]" class="form-control">
@@ -136,18 +134,49 @@ mysqli_close($cnn);
             ?>
             </select>
           </div>
-
-        
-
       </div>
       <div class="modal-footer">
-        <input type="submit" class="btn btn-primary" value="Valider">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <input type="submit" class="btn btn-primary" value="Valider">
       </div>
     </form>
     </div>
   </div>
 </div>
+
+
+<!-- Modal Connexion -->
+<div class="modal fade" id="login" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+    <form action="login.php" id="myForm" method="post">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Connexion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="mail">Courriel : </label>
+            <input type="email" name="mail" id="mail" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="pass">Mot de passe : </label>
+            <input type="password" name="pass" class="form-control" id="pass" required pattern="[A-Za-z0-9@$*!? ]{8,}">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <input type="submit" class="btn btn-primary" value="Valider">
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+
 
 <script src="js/index.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

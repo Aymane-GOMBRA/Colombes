@@ -40,7 +40,7 @@ if ($nb === 1) {
 
         //Envoie d'un mail pour confirmation si succes
         if ($res) {
-            $url='http://' . $_SERVER['HTTP_HOST'] . 'html/colombes/cp7/register2.php?m=' . $email;
+            $url='http://' . $_SERVER['HTTP_HOST'] . '/colombes/cp7/register2.php?m=' . $email;
             //Corps du mail
             $html = '';
             $html .= '<h1>Inscription Northwind Traders</h1>';
