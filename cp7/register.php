@@ -22,6 +22,7 @@ if (mysqli_stmt_prepare($qry, $sql)) {
 if ($nb === 1) {
     //3. si oui alors afficher message erreur
     echo $_POST['mail'] . ' est déja enregistrée.';
+    header('location:index.php?i=d');
 } else {
     //4. si non alors créer un nouvel user avec rôle app_read
     $qry = mysqli_stmt_init($cnn);
@@ -40,14 +41,8 @@ if ($nb === 1) {
         //Envoie d'un mail pour confirmation si succes
         if ($res) {
             $url='http://' . $_SERVER['HTTP_HOST'] . 'html/colombes/cp7/register2.php?m=' . $email;
-            $url=urlencode($url);
             //Corps du mail
-            $html = '
-            <!DOCTYPE html>
-            <html lang="fr">
-            <head>
-            <meta charset="UTF-8">
-            </head>';
+            $html = '';
             $html .= '<h1>Inscription Northwind Traders</h1>';
             $html .= '<p>Bonjour ' . $_POST['fname'] . ' et bienvenu(e) sur notre site.';
             $html .= '<p>Clique sur le lien suivant pour valider ton inscription : <a href="'.$url.'">'.$url.'</a>';
@@ -70,8 +65,10 @@ if ($nb === 1) {
 
             $res2=mail($_POST['mail'], 'Northwind Traders', $html, $header);
             echo ($res2 ? 'Succès' : 'Echec');
+            header('location:index.php?i=t');
         } else {
             echo 'Echec dans l\'ajout du user';
+            header('location:index.php?i=f');
         }
     }
 
@@ -84,3 +81,4 @@ if ($nb === 1) {
 
 
 mysqli_close($cnn);
+

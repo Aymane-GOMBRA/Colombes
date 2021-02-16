@@ -30,6 +30,25 @@
   <a class="btn btn-primary btn-lg" data-toggle="modal" href="#"data-target="#staticBackdrop" role="button">Inscription</a>
 </div>
 
+<?php
+if(isset($_GET['i']) && !empty($_GET['i'])){
+
+  if($_GET['i']==='d'){
+    echo '<div class="alert alert-warning" role="alert">Cette adresse email est déjà enregistrée.
+    </div>';
+  }elseif($_GET['i']==='t'){
+    echo'<div class="alert alert-success" role="alert">
+    Inscription réussie.
+    </div>';
+  }elseif($_GET['i']==='f'){
+    echo'<div class="alert alert-danger" role="alert">
+    Tentative d\'inscription échoué.
+    </div>';
+  }
+}
+
+?>
+
 
 <section id="team" class="d-flex flex-wrap justify-content-around">
 <?php
