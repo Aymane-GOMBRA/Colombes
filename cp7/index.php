@@ -1,3 +1,10 @@
+<?php
+session_start();
+$connected=false;
+if(isset($_SESSION['connected']) && $_SESSION['connected']){
+  $connected=$_SESSION['connected'];
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -26,24 +33,50 @@
     ?></p>
   <hr class="my-4">
   <p>Cliquez sur le bouton ci-dessous pour accéder au back-office(user et mot de passe requis):</p>
-  <a class="btn btn-success btn-lg" data-toggle="modal" href="#"data-target="#login" role="button">Connexion</a>
-  <a class="btn btn-primary btn-lg" data-toggle="modal" href="#"data-target="#register" role="button">Inscription</a>
+  <a class="btn btn-primary btn-lg"  href="index.php" role="button">Acceuil</a>
+  <a class="btn btn-success btn-lg <?php echo ($connected?' bouttonC':' ')?>" data-toggle="modal" href="#"data-target="#login" role="button">Connexion</a>
+  <a class="btn btn-warning btn-lg" data-toggle="modal" href="#"data-target="#register" role="button">Inscription</a>
+  <a class="btn btn-danger btn-lg float-right"  href="logout.php" role="button">Déconnexion</a>
 </div>
 
 <?php
 if(isset($_GET['i']) && !empty($_GET['i'])){
 
   if($_GET['i']==='d'){
-    echo '<div class="alert alert-warning" role="alert">Cette adresse email est déjà enregistrée.
-    </div>';
+    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">Cette adresse exsite déjà.<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>';
   }elseif($_GET['i']==='t'){
-    echo'<div class="alert alert-success" role="alert">
-    Inscription réussie.
-    </div>';
+    echo'<div class="alert alert-success alert-dismissible fade show" role="alert">Inscription réussie.<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>';
   }elseif($_GET['i']==='f'){
-    echo'<div class="alert alert-danger" role="alert">
-    Tentative d\'inscription échoué.
-    </div>';
+    echo'<div class="alert alert-danger alert-dismissible fade show" role="alert">Tentative d\'inscription échoué.<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>';
+  }
+}
+
+if(isset($_GET['c']) && !empty($_GET['c'])){
+
+  if($_GET['c']==='f'){
+    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">Ce compte n\'existe pas.<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>';
+  }
+}
+
+if(isset($_GET['d']) && !empty($_GET['d'])){
+
+  if($_GET['d']==='t'){
+    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">Vous êtes deconnecté.<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>';
   }
 }
 

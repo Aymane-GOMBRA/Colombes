@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(!isset($_SESSION['connected']) || !$_SESSION['connected']){
+  header('location:index.php?d=t');
+  exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,8 +16,24 @@
 </head>
 <body class="container">
     <H1>JE SUIS ADMIN</H1>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.php">Acceuil</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Back-Office</li>
+  </ol>
+<a class="btn btn-danger btn-lg float-right"  href="logout.php" role="button">Déconnexion</a>
+</nav>
     <h2>Test en query moins sécurité</h2>
 <?php
+if(isset($_GET['user']) && !empty($_GET['user'])){
+
+  if($_GET['user']==='login'){
+    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">Vous êtes maintenant connecté<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>';
+  }
+}
   include_once('constants.php');
   try {
       $pdo=new PDO('mysql:host='.HOST.';dbname='.DB.';charset=utf8', USER, PASS);
@@ -58,7 +81,7 @@ include_once('constants.php');
           <h5 class="card-title">'. strtoupper($ligne['TABLE_NAME']).'</h5>
           <p class="card-text"><strong>Clé primaire : </strong> '.$ligne['COLUMN_NAME'].'</p>
           <p class="card-text"><strong>Nb de lignes : </strong> '.$ligne['TABLE_ROWS'].'</p>
-          <a href="/list.php?t='.$ligne['TABLE_NAME'].'&k='.$ligne['COLUMN_NAME'].'" class="btn btn-primary">Details</a>
+          <a href="list.php?t='.$ligne['TABLE_NAME'].'&k='.$ligne['COLUMN_NAME'].'" class="btn btn-primary">Details</a>
           </div>
       </div>
     </div>';
@@ -73,5 +96,8 @@ include_once('constants.php');
 }
   
   ?>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
 </body>
 </html>
