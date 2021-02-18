@@ -17,7 +17,7 @@ include_once('pdo_connect.php');
 <body class="container">
     <?php
     //Message si pas d'info dans l'URL
-    if (!isset($_GET['t']) || empty($_GET['t']) || !isset($_GET['k']) || empty($_GET['k']) || !isset($_GET['id']) || empty($_GET['id'])) {
+    if (!isset($_GET['t']) || empty($_GET['t']) || !isset($_GET['k']) || empty($_GET['k']) || !isset($_GET['id'])){
         echo '<p class="alert alert-warning"><strong>Attention !</strong> Aucune données à afficher : <a href="bo.php">retour au back-office</a></p>';
         exit();
     }
@@ -39,11 +39,20 @@ include_once('pdo_connect.php');
     <form style="text-align: center" action="" method="post">
         <?php
         try {
-            $sql = "SELECT * FROM $t where $k=?";
-            $qry = $cnn->prepare($sql);
-            $vals=array($id);
-            $qry->execute($vals);
-            $row = $qry->fetch();
+            if(!empty($id)){
+                $sql = "SELECT * FROM $t where $k=?";
+                $qry = $cnn->prepare($sql);
+                $vals=array($id);
+                $qry->execute($vals);
+                $row = $qry->fetch();
+            }else{
+                $sql = "SELECT * FROM $t where 1=2";
+                $qry = $cnn->prepare($sql);
+                $qry->execute();
+                for($i=0;$i<$qry->columnCount();$i++){
+                    $row[$qry->getColumnMeta($i)['name']]='';
+                }
+            }
             //Ajoute Label/Input
             $html='';
             foreach($row as $key=>$val){
@@ -52,7 +61,7 @@ include_once('pdo_connect.php');
                 $html.='<input type="text" id="'.$key.'" name="'.$key.'" value="'.$val.'"/>';
                 $html.='</div>';
             }
-            $html.='<input type="submit" class="btn btn-primary" value="Enregistrer">';
+            $html.='<input type="submit" class="btn btn-info" value="Enregistrer">';
             echo $html;
         } catch (PDOException $e) {
             echo '<p class="alert alert-danger">' . $e->getMessage() . '</p>';
