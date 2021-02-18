@@ -23,42 +23,42 @@ if(!isset($_SESSION['connected']) || !$_SESSION['connected']){
   </ol>
 <a class="btn btn-danger btn-lg float-right"  href="logout.php" role="button">Déconnexion</a>
 </nav>
-    <h2>Test en query moins sécurité</h2>
 <?php
-if(isset($_GET['user']) && !empty($_GET['user'])){
+// echo '<h2>Test en query moins sécurité</h2>';
+// if(isset($_GET['user']) && !empty($_GET['user'])){
 
-  if($_GET['user']==='login'){
-    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">Vous êtes maintenant connecté<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>';
-  }
-}
-  include_once('constants.php');
-  try {
-      $pdo=new PDO('mysql:host='.HOST.';dbname='.DB.';charset=utf8', USER, PASS);
-      $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION) ;
-      $pdostat = $pdo->query("SELECT t.TABLE_NAME, t.TABLE_ROWS, c.COLUMN_NAME from information_schema.tables t join information_schema.columns c on t.TABLE_SCHEMA = c.TABLE_SCHEMA AND t.TABLE_NAME=c.TABLE_NAME WHERE t.TABLE_SCHEMA = 'northwind' and c.COLUMN_KEY ='PRI' and t.TABLE_ROWS < 1000;");
-      $pdostat->setFetchMode(PDO::FETCH_ASSOC) ;
-      $html='<div class="row row-cols-1 row-cols-md-5">';
-        foreach ($pdostat as $ligne) {
-        $html .='<div class="col mb-4">
-        <div class="card h-100">
-          <img src="pics/tesla.jpeg" class="card-img-top" alt="...">
-          <div class="card-body">
-          <h5 class="card-title">'. strtoupper($ligne['TABLE_NAME']).'</h5>
-          <p class="card-text"><strong>Clé primaire : </strong> '.$ligne['COLUMN_NAME'].'</p>
-          <p class="card-text"><strong>Nb de lignes : </strong> '.$ligne['TABLE_ROWS'].'</p>
-            <a href="#" class="btn btn-primary">Details</a>
-            </div>
-        </div>
-      </div>';
-        }
-        $html.='</div>';
-        echo $html;
-  }catch(Exception $e){
-    echo '<p class="alert alert-danger">'.$e->getMessage().'</p>';
-  }
+//   if($_GET['user']==='login'){
+//     echo '<div class="alert alert-success alert-dismissible fade show" role="alert">Vous êtes maintenant connecté<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+//       <span aria-hidden="true">&times;</span>
+//     </button>
+//   </div>';
+//   }
+// }
+//   include_once('constants.php');
+//   try {
+//       $pdo=new PDO('mysql:host='.HOST.';dbname='.DB.';charset=utf8', USER, PASS);
+//       $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION) ;
+//       $pdostat = $pdo->query("SELECT t.TABLE_NAME, t.TABLE_ROWS, c.COLUMN_NAME from information_schema.tables t join information_schema.columns c on t.TABLE_SCHEMA = c.TABLE_SCHEMA AND t.TABLE_NAME=c.TABLE_NAME WHERE t.TABLE_SCHEMA = 'northwind' and c.COLUMN_KEY ='PRI' and t.TABLE_ROWS < 1000;");
+//       $pdostat->setFetchMode(PDO::FETCH_ASSOC) ;
+//       $html='<div class="row row-cols-1 row-cols-md-5">';
+//         foreach ($pdostat as $ligne) {
+//         $html .='<div class="col mb-4">
+//         <div class="card h-100">
+//           <img src="pics/tesla.jpeg" class="card-img-top" alt="...">
+//           <div class="card-body">
+//           <h5 class="card-title">'. strtoupper($ligne['TABLE_NAME']).'</h5>
+//           <p class="card-text"><strong>Clé primaire : </strong> '.$ligne['COLUMN_NAME'].'</p>
+//           <p class="card-text"><strong>Nb de lignes : </strong> '.$ligne['TABLE_ROWS'].'</p>
+//             <a href="#" class="btn btn-primary">Details</a>
+//             </div>
+//         </div>
+//       </div>';
+//         }
+//         $html.='</div>';
+//         echo $html;
+//   }catch(Exception $e){
+//     echo '<p class="alert alert-danger">'.$e->getMessage().'</p>';
+//   }
 ?>
 
 <h2>Test avec les parametres passé en tableau (plus sécurisé)</h2>
@@ -72,7 +72,7 @@ include_once('constants.php');
     $qry = $cnn->prepare($sql);
     $vals=array(DB, 'PRI', 1000);
     $qry->execute($vals);
-    $html='<div class="row row-cols-1 row-cols-md-5">';
+    $html='<div class="row row-cols-1 row-cols-md-4">';
       foreach ($qry as $ligne) {
       $html .='<div class="col mb-4">
       <div class="card h-100">

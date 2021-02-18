@@ -34,9 +34,12 @@ if(isset($_SESSION['connected']) && $_SESSION['connected']){
   <hr class="my-4">
   <p>Cliquez sur le bouton ci-dessous pour accéder au back-office(user et mot de passe requis):</p>
   <a class="btn btn-primary btn-lg"  href="index.php" role="button">Acceuil</a>
-  <a class="btn btn-success btn-lg <?php echo ($connected?' bouttonC':' ')?>" data-toggle="modal" href="#"data-target="#login" role="button">Connexion</a>
-  <a class="btn btn-warning btn-lg" data-toggle="modal" href="#"data-target="#register" role="button">Inscription</a>
-  <a class="btn btn-danger btn-lg float-right"  href="logout.php" role="button">Déconnexion</a>
+  <a class="btn btn-success btn-lg"  style="display:<?php echo ($connected ? '' : 'none'); ?>" href="bo.php" role="button">Accéder au Back-Office</a>
+  <span style="display:<?php echo (!$connected ? '' : 'none'); ?>">
+            <a class="btn btn-success btn-lg" href="#" role="button" data-toggle="modal" data-target="#login">Connexion</a>
+            <a class="btn btn-warning btn-lg" href="#" role="button" data-toggle="modal" data-target="#register">Inscription</a>
+  </span>
+  <a class="btn btn-danger btn-lg float-right"  style="display:<?php echo ($connected ? '' : 'none'); ?>" href="logout.php" role="button" >Déconnexion</a>
 </div>
 
 <?php
