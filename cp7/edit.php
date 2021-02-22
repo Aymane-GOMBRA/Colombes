@@ -36,7 +36,7 @@ include_once('pdo_connect.php');
         </ol>
     </nav>
 
-    <form style="text-align: center" action="" method="post">
+    <form style="text-align: center" action="save.php?<?php echo $_SERVER['QUERY_STRING'] ?>" method="post">
         <?php
         try {
             if(!empty($id)){

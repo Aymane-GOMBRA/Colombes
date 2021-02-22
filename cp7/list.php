@@ -29,7 +29,8 @@ if(isset($_GET['nb']) && !empty($_GET['nb'])){
 
 <body class="container">
     <?php
-    //Message si pas d'info dans l'URL
+ 
+ //Message si pas d'info dans l'URL
 if(!isset($_GET['t']) || empty($_GET['t']) || !isset($_GET['k']) || empty($_GET['k'])){
     echo '<p class="alert alert-warning"><strong>Attention !</strong> Aucune données à afficher : <a href="bo.php">retour au back-office</a></p>';
     exit();
@@ -39,6 +40,20 @@ if(!isset($_GET['t']) || empty($_GET['t']) || !isset($_GET['k']) || empty($_GET[
     $t = $_GET['t'];
     $k = $_GET['k'];
     echo '<h1>Base de données : ' . DB . '</h1>';
+    if(isset($_GET['s']) && !empty($_GET['s'])){
+
+        if($_GET['s']==='t'){
+          echo '<div class="alert alert-success alert-dismissible fade show" role="alert">Table '.DB.' mise à jour.<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>';
+        }elseif($_GET['s']==='f'){
+            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">'.$t.' supprimer.<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>';
+          }
+      }
     ?>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -49,6 +64,7 @@ if(!isset($_GET['t']) || empty($_GET['t']) || !isset($_GET['k']) || empty($_GET[
     </nav>
     <?php
     echo '<h2>Table : ' . $t . '</h2>';
+    echo '<a class = "btn btn-success" href="edit.php?t='.$t.'&k='.$k.'&id=">Ajouter</a>';
     try {
         $start = ($pg-1)*$nb;
         $sql = 'SELECT * FROM ' .$t. ' LIMIT '.$start.', '.$nb;
@@ -104,7 +120,7 @@ if(!isset($_GET['t']) || empty($_GET['t']) || !isset($_GET['k']) || empty($_GET[
                     }
                 }
                 $html.='<td><a class="btn btn-warning btn-sm" href="edit.php?t='.$t.'&k='.$k.'&id='.$row[$k].'">MAJ</a></td>';
-                $html.='<td><a class="btn btn-danger btn-sm" href="delete.php?t='.$t.'&k='.$k.'&id='.$row[$k].'">SUPPR</a></td>';
+                $html.='<td><a class="btn btn-danger btn-sm delete" href="delete.php?t='.$t.'&k='.$k.'&id='.$row[$k].'">SUPPR</a></td>';
                 $html .= '</tr>';
             }
             echo $html;
@@ -122,6 +138,7 @@ if(!isset($_GET['t']) || empty($_GET['t']) || !isset($_GET['k']) || empty($_GET[
     $html='';
     $html.='<li class="page-item '.($pg==1?'disabled':'').'" ><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?t='.$t.'&k='.$k.'&pg='.($pg-1).'&nb='.$nb.'">Précédent</a></li>';
     
+
     for($i = 1;$i<=$pgs;$i++){
         $href=$_SERVER['PHP_SELF'].'?t='.$t.'&k='.$k.'&pg='.$i.'&nb='.$nb;
         $html.='<li class="page-item '.($pg==$i?'active':'').'"><a class="page-link" href="'.$href.'">'.$i.'</a></li>';
@@ -134,7 +151,9 @@ if(!isset($_GET['t']) || empty($_GET['t']) || !isset($_GET['k']) || empty($_GET[
 
     ?>
     </nav>
-
+<script src="js/list.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
 </body>
 </html>
