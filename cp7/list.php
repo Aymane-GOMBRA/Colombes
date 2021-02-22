@@ -40,6 +40,7 @@ if(!isset($_GET['t']) || empty($_GET['t']) || !isset($_GET['k']) || empty($_GET[
     $t = $_GET['t'];
     $k = $_GET['k'];
     echo '<h1>Base de données : ' . DB . '</h1>';
+    
     if(isset($_GET['s']) && !empty($_GET['s'])){
 
         if($_GET['s']==='t'){
@@ -54,7 +55,9 @@ if(!isset($_GET['t']) || empty($_GET['t']) || !isset($_GET['k']) || empty($_GET[
         </div>';
           }
       }
+      
     ?>
+    
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.php">Acceuil</a></li>
@@ -64,7 +67,10 @@ if(!isset($_GET['t']) || empty($_GET['t']) || !isset($_GET['k']) || empty($_GET[
     </nav>
     <?php
     echo '<h2>Table : ' . $t . '</h2>';
-    echo '<a class = "btn btn-success" href="edit.php?t='.$t.'&k='.$k.'&id=">Ajouter</a>';
+    echo '<a class = "btn btn-success m-1" href="edit.php?t='.$t.'&k='.$k.'&id=">Ajouter</a>';
+    echo '<a class = "btn btn-danger m-1" href="export_pdf.php">Exporter en PDF</a>';
+    echo '<a class = "btn btn-warning m-1" href="">Exporter en CSV</a>';
+    echo '<a class = "btn btn-info m-1" href="">Exporter en XML</a>';
     try {
         $start = ($pg-1)*$nb;
         $sql = 'SELECT * FROM ' .$t. ' LIMIT '.$start.', '.$nb;
