@@ -68,9 +68,9 @@ if(!isset($_GET['t']) || empty($_GET['t']) || !isset($_GET['k']) || empty($_GET[
     <?php
     echo '<h2>Table : ' . $t . '</h2>';
     echo '<a class = "btn btn-success m-1" href="edit.php?t='.$t.'&k='.$k.'&id=">Ajouter</a>';
-    echo '<a class = "btn btn-danger m-1" href="export_pdf.php">Exporter en PDF</a>';
-    echo '<a class = "btn btn-warning m-1" href="">Exporter en CSV</a>';
-    echo '<a class = "btn btn-info m-1" href="">Exporter en XML</a>';
+    echo '<a class = "btn btn-danger m-1" href="export_pdf.php?t='.$t.'">Exporter en PDF</a>';
+    echo '<a class = "btn btn-warning m-1" href="export_csv.php?t='.$t.'">Exporter en CSV</a>';
+    echo '<a class = "btn btn-info m-1" href="export_xml.php?t='.$t.'">Exporter en XML</a>';
     try {
         $start = ($pg-1)*$nb;
         $sql = 'SELECT * FROM ' .$t. ' LIMIT '.$start.', '.$nb;
