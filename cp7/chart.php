@@ -30,19 +30,31 @@ $white = imagecolorallocate($img, 255, 255, 255);
 $trans = imagecolorallocatealpha($img, 255, 255, 255, 63);
 
 imagefilledrectangle($img, 0, 0, $w, $h, $trans);
-$gap = 20;
-$wbar = ($w - ($gap * 2)) / count($data);
-$hmax = $h - ($gap * 2);
-$val_max = 150000;
 
-for ($i = 0; $i < count($data); $i++) {
-    $hbar = round(($data[$i]['ca'] * ($hmax - $gap)) / $val_max);
-    $alea = imagecolorallocatealpha($img, rand(0, 255), rand(0, 255), rand(0, 255), 15);
-    imagefilledrectangle($img, $gap + ($i * $wbar), $hmax - $hbar, $gap + ($i * $wbar) + $wbar, $h - $gap, $alea);
-    imagerectangle($img, $gap + ($i * $wbar), $hmax - $hbar, $gap + ($i * $wbar) + $wbar, $h - $gap, $white);
-    //Label
-    imagestring($img, 5, $gap + ($i * $wbar) + $wbar / 5, $h - $hbar - (3 * $gap), round($data[$i]['ca']/1000).'K e', $black);
-    imagestring($img, 5, $gap+($i*$wbar)+$wbar/2, $h-$gap, $data[$i]['mois'], $black);
+
+if($data){
+    $gap = 20;
+    $wbar = ($w - ($gap * 2)) / count($data);
+    $hmax = $h - ($gap * 2);
+    $val_max = 150000;
+    for ($i = 0; $i < count($data); $i++) {
+        $hbar = round(($data[$i]['ca'] * ($hmax - $gap)) / $val_max);
+        $alea = imagecolorallocatealpha($img, rand(0, 255), rand(0, 255), rand(0, 255), 15);
+        imagefilledrectangle($img, $gap + ($i * $wbar), $hmax - $hbar, $gap + ($i * $wbar) + $wbar, $h - $gap, $alea);
+        imagerectangle($img, $gap + ($i * $wbar), $hmax - $hbar, $gap + ($i * $wbar) + $wbar, $h - $gap, $white);
+        //Label
+        imagestring($img, 5, $gap + ($i * $wbar) + $wbar / 5, $h - $hbar - (3 * $gap), round($data[$i]['ca']/1000).'K e', $black);
+        imagestring($img, 5, $gap+($i*$wbar)+$wbar/2, $h-$gap, $data[$i]['mois'], $black);
+    }
+    
+    //Axe et titres
+    imageline($img, $gap, $h-$gap, $w-$gap, $h-$gap, $black);
+    //Abscisses
+    imageline($img, $gap, $gap,$gap,$h-$gap, $black);//Ordonnées
+    imagestring($img, 5, $w*.25, $gap, utf8_decode("CA du vendeur $e  pour l'année $a "), $black);
+
+}else{
+    imagestring($img, 50, 100, 100, utf8_decode("Aucune data trouvée"), $black);
 }
 
 //Affiche le résultat
