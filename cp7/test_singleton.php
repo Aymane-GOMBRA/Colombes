@@ -26,18 +26,21 @@ $produits = new Model(HOST, 3306, DB, USER, PASS, 'produits');
 
 //Test 7 : insert
 $cat = new Model(HOST, 3306, DB, USER, PASS, 'categories');
-$cat->insert(array(
-    'CODE_CATEGORIE'=>667,
-    'NOM_CATEGORIE'=>'Devil Cream',
-    'DESCRIPTION'=>'Diaboliquement bon'
-));
+// $cat->insert(array(
+//     'CODE_CATEGORIE'=>667,
+//     'NOM_CATEGORIE'=>'Devil Cream',
+//     'DESCRIPTION'=>'Diaboliquement bon'
+// ));
 
+//Test 8 : update
+// $cat->update(array(
+//     'CODE_CATEGORIE'=>999,
+//     'NOM_CATEGORIE'=>'Devil Creamy',
+//     'DESCRIPTION'=>'Diaboliquement good'
+// ), 'CODE_CATEGORIE', '667');
+
+
+//Test 9 : delete
+// $cat->delete('CODE_CATEGORIE', 999);
 var_dump($cat->getRows());
-
-//Test 7 : update
-$cat->update(array(
-    'CODE_CATEGORIE'=>999,
-    'NOM_CATEGORIE'=>'Devil Creamy',
-    'DESCRIPTION'=>'Diaboliquement good'
-), 'CODE_CATEGORIE', 667);
 
